@@ -1,6 +1,20 @@
+/*
+    The flex box features are added in this file.
+    Using flex needs CSS3 and the latest version of your browser.
+ */
+@keyframes moving {
+    0%   {align-items: flex-start;}
+    50%  {align-items: center}
+    100% {align-items: flex-end;}
+}
+
 .container {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
+    animation-name: moving;
+    animation-duration: 5s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
