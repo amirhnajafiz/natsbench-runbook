@@ -1,0 +1,20 @@
+body {
+    background: rgb(40, 40, 50);
+    padding: 20px;
+}
+
+.box {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    background: rgb(30, 120, 190);
+}
+
+.pack {
+    height: 100px;
+    padding: 20px;
+    margin-top: 50px;
+    margin-left: 20px;
+    border-radius: 5px;
+    background: rgb(190, 120, 30);
+}
