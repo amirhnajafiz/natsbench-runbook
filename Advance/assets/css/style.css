@@ -1,0 +1,143 @@
+html {
+    font-size: 14px;
+}
+body{
+    margin:0px;
+    padding: 0px;
+    font-size: 14px;
+    direction: rtl;
+    background: #f1f1f1;
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+.container {
+    max-width: 2000px;
+    width:100%;
+    margin: 0px auto;
+    height: 100vh;
+}
+
+.d-flex {
+    display: flex;
+}
+.d-flex-row {
+    flex-direction: row;
+}
+.d-flex-row-reverse {
+    flex-direction: row-reverse;
+}
+.d-flex-align-item-stretch {
+    align-items: stretch;
+}
+
+.right-box {
+    width:25%;
+    border-left: 1px solid #474747;
+    /*background: #98b809;*/
+}
+.left-box {
+    width:75%;
+    /*background: #fb8500;*/
+}
+
+.circle {
+    width: 160px;
+    height: 160px;
+    background: #474747;
+    border-radius: 50%;
+}
+
+
+.circle-mini {
+    width: 40px;
+    height: 40px;
+    background: #474747;
+    border-radius: 50%;
+}
+
+.dcircle {
+    width: 60%;
+    background: #474747;
+    height: 23px;
+    display: block;
+    border-radius: 35px;
+    margin-bottom: 10px;
+}
+
+.base-title {
+    color: #272727;
+}
+
+.right-box-menu {
+    list-style-type: none;
+    width: 100%;
+    padding-right: 0;
+}
+
+.base-title {
+    margin: 40px 0px;
+}
+
+.right-box-menu li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.left-box-header {
+    justify-content: space-between;
+    padding: 15px;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+.left-box-header-icons {
+    display: flex;
+    justify-content: space-around;
+    width: 150px;
+}
+.left-box-header-title {
+    color: #272727;
+    font-size: 2rem;
+}
+
+
+.left-box-header {
+    border-bottom: 1px solid #474747;
+}
+
+.left-box-content-box1 {
+    height: 300px;
+    flex-grow: 2;
+    border: 2px solid #474747;
+    margin: 0px 10px;
+}
+
+.left-box-content-box2 {
+    height: 300px;
+    flex-grow: 1;
+    border: 2px solid #474747;
+    margin: 0px 10px;
+}
+
+.row {
+    margin: 15px 0px;
+}
+
+.left-box-content {
+    padding: 15px;
+}
