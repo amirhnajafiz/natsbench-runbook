@@ -13,7 +13,6 @@ body {
     margin:0;
     padding: 0;
     font-size: 14px;
-    direction: rtl;
     background: #f1f1f1;
 }
 
@@ -35,6 +34,7 @@ a {
 
 .left-box {
     width:75%;
+    overflow: auto;
 }
 
 .circle {
