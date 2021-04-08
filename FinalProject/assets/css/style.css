@@ -1,0 +1,32 @@
+/* Project base styles */
+html {
+    font-size: 14px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    height: 100vh;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.cart-header {
+    height: 60px;
+    background-color: crimson;
+}
+
+.cart-content {
+    background-color: #eaea3e;
+}
