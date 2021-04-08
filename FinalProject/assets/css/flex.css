@@ -10,3 +10,7 @@
 .flex-col {
     flex-direction: column;
 }
+
+.center-item {
+    align-items: center;
+}
