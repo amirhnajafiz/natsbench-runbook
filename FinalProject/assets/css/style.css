@@ -93,6 +93,7 @@ body {
 .shop-recite {
     height: 50vh;
     background-color: indigo;
+    padding: 10px;
 }
 
 .shop-commercial {
@@ -111,4 +112,45 @@ body {
     background-color: lime;
     width: 60%;
     margin: 5px;
+}
+
+.shop-factor {
+    width: 55%;
+    background-color: lightgray;
+    margin-right: 5px;
+}
+
+.payment-option {
+    width: 45%;
+    background-color: indianred;
+}
+
+.terms-conditions {
+    height: 50px;
+    background-color: red;
+    margin-bottom: 5px;
+}
+
+.buttons-panel {
+    height: 40px;
+    background-color: chocolate;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn {
+    width: 80px;
+    height: 25px;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    border: 0 solid blue;
+}
+
+.pay-btn {
+    background-color: green;
+}
+
+.can-btn {
+    background-color: red;
 }
