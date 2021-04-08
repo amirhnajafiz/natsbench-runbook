@@ -89,3 +89,26 @@ body {
     background-color: darkkhaki;
     flex-grow: 1;
 }
+
+.shop-recite {
+    height: 50vh;
+    background-color: indigo;
+}
+
+.shop-commercial {
+    height: 50vh;
+    background-color: orange;
+    flex-wrap: wrap;
+}
+
+.commercial-item {
+    background-color: darkred;
+    width: 40%;
+    margin: 5px;
+}
+
+.big-commercial {
+    background-color: lime;
+    width: 60%;
+    margin: 5px;
+}
