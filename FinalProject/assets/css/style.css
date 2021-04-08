@@ -30,7 +30,7 @@ body {
 }
 
 .cart-content {
-    background-color: #eaea3e;
+    align-items: stretch;
 }
 
 .user-pic {
@@ -51,4 +51,41 @@ body {
     border-radius: 50%;
     background-color: #474747;
     margin-right: 8px;
+}
+
+.cart-content-left-panel {
+    width: 40%;
+    background-color: chartreuse;
+}
+
+.cart-content-right-panel {
+    width: 60%;
+    background-color: greenyellow;
+}
+
+.shop-item {
+    margin: 10px 0;
+    background-color: blue;
+    width: 80%;
+    height: 50px;
+    border-radius: 5px;
+    justify-content: space-between;
+    padding: 2px 10px;
+}
+
+.shop-item-name {
+    background-color: chocolate;
+    flex-grow: 2;
+    margin-right: 5px;
+}
+
+.shop-item-number {
+    background-color: #f1f1f1;
+    flex-grow: 0.5;
+    margin-right: 5px;
+}
+
+.shop-item-price {
+    background-color: darkkhaki;
+    flex-grow: 1;
 }
