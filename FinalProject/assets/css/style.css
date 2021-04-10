@@ -58,85 +58,89 @@ body {
 
 .cart-content-left-panel {
     width: 40%;
-    background-color: chartreuse;
+    background-color: #FFFFFF;
+    border-right: 1px solid black;
 }
 
 .cart-content-right-panel {
     width: 60%;
-    background-color: greenyellow;
+    background-color: #FFFFFF;
 }
 
 .shop-item {
     margin: 15px 0;
-    background-color: blue;
+    background-color: #00203FFF;
     width: 80%;
-    height: 50px;
+    height: 70px;
     border-radius: 5px;
     justify-content: space-between;
-    padding: 2px 10px;
+    padding: 10px 10px;
 }
 
 .shop-item-name {
-    background-color: chocolate;
+    background-color: #ADEFD1FF;
     flex-grow: 2;
     margin-right: 5px;
+    border-radius: 5px;
 }
 
 .shop-item-number {
-    background-color: #f1f1f1;
+    background-color: #ADEFD1FF;
     flex-grow: 0.5;
     margin-right: 5px;
+    border-radius: 5px;
 }
 
 .shop-item-price {
-    background-color: darkkhaki;
+    background-color: #ADEFD1FF;
     flex-grow: 1;
+    border-radius: 5px;
 }
 
 .shop-recite {
     height: 50vh;
-    background-color: indigo;
+    background-color: #FFFFFF;
     padding: 10px;
 }
 
 .shop-commercial {
     height: 50vh;
-    background-color: orange;
+    background-color: #FFFFFF;
     flex-wrap: wrap;
 }
 
 .commercial-item {
-    background-color: darkred;
+    background-color: #ADEFD1FF;
     width: 40%;
     margin: 5px;
 }
 
 .big-commercial {
-    background-color: lime;
+    background-color: #00203FFF;
     width: 60%;
     margin: 5px;
 }
 
 .shop-factor {
     width: 55%;
-    background-color: lightgray;
+    background-color: #ADEFD1FF;
     margin-right: 5px;
 }
 
 .payment-option {
     width: 45%;
-    background-color: indianred;
+    background-color: #00203FFF;
 }
 
 .terms-conditions {
     height: 50px;
-    background-color: red;
+    background-color: #ADEFD1FF;
     margin-bottom: 5px;
 }
 
 .buttons-panel {
     height: 40px;
-    background-color: chocolate;
+    background-color: #00203FFF;
     justify-content: space-around;
     align-items: center;
 }
@@ -147,13 +151,13 @@ body {
     border-radius: 5px;
     padding: 5px;
     color: white;
-    border: 0 solid blue;
+    border: 0 solid black;
 }
 
 .pay-btn {
-    background-color: green;
+    background-color: rgba(0, 150, 80, 0.9);
 }
 
 .can-btn {
-    background-color: red;
+    background-color: rgba(150, 0, 20, 0.9);
 }
