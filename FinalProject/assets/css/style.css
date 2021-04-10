@@ -24,7 +24,7 @@ body {
 
 .cart-header {
     height: 85px;
-    background-color: crimson;
+    background-color: #00203FFF;
     justify-content: space-between;
     padding: 20px;
 }
@@ -36,20 +36,23 @@ body {
 .user-pic {
     width: 75px;
     height: 75px;
-    background-color: #272727;
+    background-color: #ADEFD1FF;
     border-radius: 50%;
 }
 
 .user-name {
     color: aliceblue;
     margin-left: 10px;
+    padding: 10px;
+    background-color: #272727;
+    border-radius: 10px;
 }
 
 .circle {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #474747;
+    background-color: #ADEFD1FF;
     margin-right: 8px;
 }
 
@@ -64,7 +67,7 @@ body {
 }
 
 .shop-item {
-    margin: 10px 0;
+    margin: 15px 0;
     background-color: blue;
     width: 80%;
     height: 50px;
