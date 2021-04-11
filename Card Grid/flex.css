@@ -1,4 +1,19 @@
 .container {
     display: flex;
     flex-direction: row;
+    align-content: space-between;
+    flex-wrap: wrap;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.row {
+    justify-content: space-between;
+    align-items: center;
 }

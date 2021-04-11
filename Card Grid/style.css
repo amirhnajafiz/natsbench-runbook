@@ -9,9 +9,21 @@ body {
     margin: 0;
 }
 
+.full-width {
+    width: 100%;
+}
+
 .container {
     background-color: #eaea3e;
     width: 900px;
-    height: 450px;
+    height: 500px;
     margin: 50px auto;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.item {
+    background-color: #434343;
+    width: 100px;
+    height: 50px;
 }
