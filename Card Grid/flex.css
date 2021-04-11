@@ -17,3 +17,12 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.flex-col {
+    flex-direction: column;
+}
+
+.center-full {
+    justify-content: center;
+    align-items: center;
+}
