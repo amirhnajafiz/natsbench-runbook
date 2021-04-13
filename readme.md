@@ -6,3 +6,17 @@
   The main idea behind the flex layout is to give the container the ability to alter its items’ width/height (and order) to best fill the available space (mostly to accommodate to all kind of display devices and screen sizes).<br />
   A flex container expands items to fill available free space or shrinks them to prevent overflow.
 </p>
+
+### Examples
+<p>
+    <p> Creating a simple component with items, just with justify and align:</p>
+    <img src="Demo/Simple.png" width=400 /> <br />
+    <p> Give your components easy grid by just few commands:</p>
+    <img src="Demo/Grid.png" width=400 /><br />
+    <p> Create the card grid style for users:</p>
+    <img src="Demo/Cards.png" width=400 /><br />
+    <p> Simple adming panel with just flex:</p>
+    <img src="Demo/Admin.png" width=400 /><br />
+    <p> Website Shopping Card Page with flex:</p>
+    <img src="Demo/ShoppingCard.png" width=400 /><br/>
+</p>
