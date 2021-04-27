@@ -7,6 +7,7 @@
   A flex container expands items to fill available free space or shrinks them to prevent overflow.
 </p>
 
+
 ### Examples
 <p>
     <p> Creating a simple component with items, just with justify and align:</p>
