@@ -4,7 +4,8 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ .Chart.name }}-{{ .name }}
-  version: {{ .version }}
+  labels:
+    version: {{ .version }}
 spec:
   schedule: {{ .cron }}
   jobTemplate:
