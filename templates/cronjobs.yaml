@@ -3,7 +3,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Chart.name }}-jobs
+  name: {{ .Chart.name }}-{{ .name }}
   version: {{ .version }}
 spec:
   schedule: {{ .cron }}
