@@ -14,7 +14,7 @@ jobs:
   - name: job-name
     version: v0.1.1
     cron: '1 * * * * *'
-    restart-policy: never
+    restartPolicy: never
     spec:
       container:
         image: container-name

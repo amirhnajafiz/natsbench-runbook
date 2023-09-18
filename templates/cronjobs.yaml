@@ -1,0 +1,20 @@
+{{- with .Values.jobs }}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Chart.name }}-jobs
+  version: {{ .version }}
+spec:
+  schedule: {{ .cron }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: {{ .name }}
+            image: {{ .spec.container.image }}:{{ .spec.container.image }}
+            imagePullPolicy: IfNotPresent
+            command: {{-with .spec.container.command }}
+          restartPolicy: {{ .restartPolicy }}} 
+{{- end -}}}}
