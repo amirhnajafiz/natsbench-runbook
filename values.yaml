@@ -5,14 +5,25 @@ ingress:
   enable: false
 
 jobs:
-  - name: job-name
+  - name: pull-codes
     version: v0.1.1
-    cron: '1 * * * * *'
-    restartPolicy: never
+    cron: "* 1 * * * *"
+    restartPolicy: Never
     spec:
       container:
-        image: container-name
+        image: gitPuller
         tag: v0.1.0
         commands:
-          - 'ls'
-          - '-la'
+          - "git"
+          - "https://github.com/amirhnjafiz/codes.git"
+  - name: push-changes
+    version: v1.2.3
+    cron: "5 * * * * *"
+    restartPolicy: Never
+    spec:
+      container:
+        image: gitPusher
+        tag: v0.1.1
+        commands:
+          - "git"
+          - "https://github.com/amirhnjafiz/codes.git"

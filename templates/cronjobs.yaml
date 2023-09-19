@@ -7,7 +7,7 @@ metadata:
   labels:
     version: {{ $job.version }}
 spec:
-  schedule: {{ $job.cron }}
+  schedule: {{ $job.cron | quote }}
   jobTemplate:
     spec:
       template:
