@@ -3,7 +3,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .name }}
+  name: {{ . | title | quote }}-{{ .Release.Name }}
   labels:
     version: {{ .version }}
 spec:
