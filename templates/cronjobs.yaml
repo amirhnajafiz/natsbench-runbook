@@ -3,7 +3,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Chart.name }}-{{ .name }}
+  name: {{ .name }}
   labels:
     version: {{ .version }}
 spec:
@@ -16,6 +16,6 @@ spec:
           - name: {{ .name }}
             image: {{ .spec.container.image }}:{{ .spec.container.image }}
             imagePullPolicy: IfNotPresent
-            command: {{-with .spec.container.command }}
-          restartPolicy: {{ .restartPolicy }}} 
+            command: {{ .spec.container.command }}
+          restartPolicy: {{ .restartPolicy }}}
 {{- end -}}}}
