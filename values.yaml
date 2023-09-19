@@ -1,3 +1,9 @@
+service:
+  type: ClusterIP
+
+ingress:
+  enable: false
+
 jobs:
   - name: job-name
     version: v0.1.1
@@ -7,4 +13,6 @@ jobs:
       container:
         image: container-name
         tag: v0.1.0
-        command: ['ls', '-la']
+        commands:
+          - 'ls'
+          - '-la'

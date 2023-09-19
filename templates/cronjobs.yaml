@@ -1,21 +1,24 @@
-{{- with .Values.jobs }}
+{{- range $job := .Values.jobs }}
 ---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ . | title | quote }}-{{ .Release.Name }}
+  name: {{ $job.name }}-cronjob
   labels:
-    version: {{ .version }}
+    version: {{ $job.version }}
 spec:
-  schedule: {{ .cron }}
+  schedule: {{ $job.cron }}
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-          - name: {{ .name }}
-            image: {{ .spec.container.image }}:{{ .spec.container.image }}
+          - name: {{ $job.name }}-container
+            image: {{ $job.spec.container.image }}:{{ .spec.container.tag }}
             imagePullPolicy: IfNotPresent
-            command: {{ .spec.container.command }}
-          restartPolicy: {{ .restartPolicy }}}
-{{- end -}}}}
+            command:
+              {{- range $job.spec.container.commands }}
+                - {{ . }}
+              {{- end}}
+            restartPolicy: {{ $job.restartPolicy }}
+{{- end -}}
