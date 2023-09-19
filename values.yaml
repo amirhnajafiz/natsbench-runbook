@@ -1,1 +1,10 @@
-jobs: []
+jobs:
+  - name: job-name
+    version: v0.1.1
+    cron: '1 * * * * *'
+    restartPolicy: never
+    spec:
+      container:
+        image: container-name
+        tag: v0.1.0
+        command: ['ls', '-la']
