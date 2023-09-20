@@ -1,3 +1,5 @@
+{{- $restartPolicy := .Values.config.restartPolicy -}}
+{{- $imagePullPolicy := .Values.config.imagePullPolicy -}}
 {{- range $job := .Values.jobs }}
 ---
 apiVersion: batch/v1
@@ -5,7 +7,8 @@ kind: CronJob
 metadata:
   name: {{ $job.name }}-cronjob
   labels:
-    version: {{ $job.version }}
+    app: cronjob
+    type: cron
 spec:
   schedule: {{ $job.cron | quote }}
   jobTemplate:
@@ -14,11 +17,11 @@ spec:
         spec:
           containers:
           - name: {{ $job.name }}-container
-            image: {{ $job.spec.container.image }}:{{ .spec.container.tag }}
-            imagePullPolicy: IfNotPresent
-            command:
-              {{- range $job.spec.container.commands }}
-                - {{ . }}
-              {{- end}}
-            restartPolicy: {{ $job.restartPolicy }}
+            image: {{ $job.image }}
+            imagePullPolicy: {{ $imagePullPolicy }}
+            # command:
+            #   {{- range $job.commands }}
+            #     - {{ . }}
+            #   {{- end}}
+            restartPolicy: {{ $restartPolicy }}
 {{- end -}}

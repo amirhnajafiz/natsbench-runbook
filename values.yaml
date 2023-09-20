@@ -4,26 +4,14 @@ service:
 ingress:
   enable: false
 
+config:
+  restartPolicy: Never
+  imagePullPolicy: IfNotPresent
+
 jobs:
   - name: pull-codes
-    version: v0.1.1
     cron: "* 1 * * * *"
-    restartPolicy: Never
-    spec:
-      container:
-        image: gitPuller
-        tag: v0.1.0
-        commands:
-          - "git"
-          - "https://github.com/amirhnjafiz/codes.git"
+    image: gitPuller:v0.1.0
   - name: push-changes
-    version: v1.2.3
     cron: "5 * * * * *"
-    restartPolicy: Never
-    spec:
-      container:
-        image: gitPusher
-        tag: v0.1.1
-        commands:
-          - "git"
-          - "https://github.com/amirhnjafiz/codes.git"
+    image: gitPusher:v2.1.0
