@@ -36,3 +36,12 @@ config:
   restartPolicy: Never # containers restart policy
   imagePullPolicy: IfNotPresent # image pulling policy
 ```
+
+## install
+
+After you make your changes, use the following command in order to release the charts
+on your cluster.
+
+```shell
+helm install cronjobs cronjobs
+```
