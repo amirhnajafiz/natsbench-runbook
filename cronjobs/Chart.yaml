@@ -1,9 +1,6 @@
 apiVersion: v2
 name: cronjobs
-description: A Helm chart for managing cronjobs
-
+description: A Helm chart for managing your cronjobs
 type: application
-
 version: 0.1.0
-
 appVersion: "0.1.0"

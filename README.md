@@ -21,3 +21,14 @@ jobs:
           name: pull-codes-configmap
           key: repository.path
 ```
+
+## configs
+
+In order to manage cronjobs global configs you can change the following section
+in ```values.yaml``` file.
+
+```yaml
+config:
+  restartPolicy: Never # containers restart policy
+  imagePullPolicy: IfNotPresent # image pulling policy
+```
