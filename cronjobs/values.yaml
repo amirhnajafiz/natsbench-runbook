@@ -1,23 +1,30 @@
-service:
+service: # service type can only be ClusterIP
   type: ClusterIP
 
-ingress:
+
+ingress: # ingress should be disabled
   enable: false
 
-config:
+
+config: # containers configs
   restartPolicy: Never
   imagePullPolicy: IfNotPresent
 
-jobs:
-  - name: pull-codes
-    cron: "* 1 * * * *"
-    image: gitPuller:v0.1.0
-    env:
-    - name: ENV_VAR
-      valueFrom:
-        configMapKeyRef:
-          name: special-config
-          key: special.how
-  - name: push-changes
-    cron: "5 * * * * *"
-    image: gitPusher:v2.1.0
+
+# list of your jobs goes here
+jobs: [] # remove this
+  # list your jobs like the example bellow
+  # - name: pull-codes # job name
+  #   cron: "* 1 * * * *" # cron (cronjob scheduling)
+  #   image: gitPuller:v0.1.0 # docker image
+  #   env: # environment variables
+  #   - name: ENV_VAR
+  #     valueFrom:
+  #       configMapKeyRef:
+  #         name: special-config
+  #         key: special.how
+  #
+  # another example
+  # - name: push-changes
+  #   cron: "5 * * * * *"
+  #   image: gitPusher:v2.1.0
