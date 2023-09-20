@@ -14,7 +14,12 @@ jobs:
     image: gitPuller:v0.1.0
     env:
     - name: ENV_VAR
-      value: 22
+      valueFrom:
+        configMapKeyRef:
+          # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+          name: special-config
+          # Specify the key associated with the value
+          key: special.how
   - name: push-changes
     cron: "5 * * * * *"
     image: gitPusher:v2.1.0
