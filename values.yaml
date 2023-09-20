@@ -12,6 +12,9 @@ jobs:
   - name: pull-codes
     cron: "* 1 * * * *"
     image: gitPuller:v0.1.0
+    env:
+    - name: ENV_VAR
+      value: 22
   - name: push-changes
     cron: "5 * * * * *"
     image: gitPusher:v2.1.0

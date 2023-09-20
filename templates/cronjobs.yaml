@@ -19,9 +19,9 @@ spec:
           - name: {{ $job.name }}-container
             image: {{ $job.image }}
             imagePullPolicy: {{ $imagePullPolicy }}
-            # command:
-            #   {{- range $job.commands }}
-            #     - {{ . }}
-            #   {{- end}}
+            {{- with $job.env }}
+            env: 
+{{ toYaml . | indent 12 }}
+            {{- end }}
             restartPolicy: {{ $restartPolicy }}
 {{- end -}}
