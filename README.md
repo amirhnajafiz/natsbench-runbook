@@ -11,13 +11,13 @@ In ```values.yml``` file you can set your cronjobs based on the following struct
 
 ```yaml
 jobs:
-  - name: job-name
-    version: v0.1.1
-    cron: '1 * * * * *'
-    restartPolicy: never
-    spec:
-      container:
-        image: container-name
-        tag: v0.1.0
-        command: ['ls', '-la']
+  - name: pull-codes
+    cron: "* 1 * * * *"
+    image: amirhossein21/gitPuller:v0.1.0
+    env:
+    - name: REPO
+      valueFrom:
+        configMapKeyRef:
+          name: pull-codes-configmap
+          key: repository.path
 ```
