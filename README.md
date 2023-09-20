@@ -9,7 +9,7 @@ chart you can manage your cronjobs by editing only one file. This chart will red
 your time to set or edit your cronjobs. It also gives you a versioning ability on your
 cronjobs.
 
-## values
+## :ticket: values
 
 In ```values.yml``` file you can set your cronjobs based on the following structure:
 
@@ -26,7 +26,7 @@ jobs:
           key: repository.path
 ```
 
-## configs
+## :wrench: configs
 
 In order to manage cronjobs global configs you can change the following section
 in ```values.yaml``` file.
@@ -37,7 +37,7 @@ config:
   imagePullPolicy: IfNotPresent # image pulling policy
 ```
 
-## install
+## :rocket: install
 
 After you make your changes, use the following command in order to release the charts
 on your cluster.
@@ -46,7 +46,7 @@ on your cluster.
 helm install cronjobs cronjobs
 ```
 
-## real example
+## :pushpin: usage
 
 Imagine you have ```staging``` and ```production``` namespaces and you want to create
 3 cronjobs for logs exporting, metrics exporting, and garbage collecting in your database.
