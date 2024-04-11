@@ -12,18 +12,23 @@ from internal.cmd.cmd import run
 
 import errors as es
 
+import logging
+
 
 def main():
-    if not exists():
+    if not exists(): # check the cmd.json file
         panic(es.ERR_CMDFILE, 1)
     
+    # load configuration
     cfg = load()
     
     for item in cfg:
         for index in range(0, int(item["count"])):
+            # execute the command
             out, err = run(item["command"])
-            if err:
-                panic(out, 1)
+            if err: # check for errors
+                logging.debug(out)
+                logging.warning(es.ERR_EXEC_COMMAND)
             
             print(index, out)
 
