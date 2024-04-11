@@ -1,6 +1,6 @@
 [
     {
         "count": 5,
-        "command": "rides --pub 5 --sub 15 --csv=output2.csv -s nats://0.0.0.0:4222"
+        "command": "rides --pub 5 --sub 15 -s nats://0.0.0.0:4222"
     }
 ]

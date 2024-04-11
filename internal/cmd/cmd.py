@@ -9,10 +9,10 @@ params:
 returns:
     - tuple: (string, boolean)
 """
-def run(command: str) -> tuple[str, bool]:
+def run(command: str, path: str) -> tuple[str, bool]:
     # split command to an array
     subcommands = command.split(" ")
-    command_list = ["nats", "bench"] + subcommands
+    command_list = ["nats", "bench", f'--csv={path}'] + subcommands
     
     # execute the command using subprocess
     out = subprocess.run(command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
