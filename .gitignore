@@ -1,5 +1,8 @@
 .idea/
 .DS_Store
 vendor/
+
 *.tar.gz
 *.go
+
+__pycache__/

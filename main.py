@@ -7,7 +7,7 @@
 # todo: perform Hypothesis test on the results for final output
 from system.error import panic
 from internal.config import exists
-from internal.config import load
+from internal.config.config import load
 from internal.cmd.cmd import run
 
 import errors as es
