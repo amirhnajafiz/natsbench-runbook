@@ -21,7 +21,10 @@ def main():
     
     for item in cfg:
         for index in range(0, int(item["count"])):
-            out = run(cfg["command"])
+            out, err = run(item["command"])
+            if err:
+                panic(out, 1)
+            
             print(index, out)
 
 

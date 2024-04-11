@@ -7,16 +7,17 @@ params:
     - command: string
 
 returns:
-    - string
+    - tuple: (string, boolean)
 """
-def run(command: str) -> tuple[str, str]:
+def run(command: str) -> tuple[str, bool]:
     # split command to an array
     subcommands = command.split(" ")
+    command_list = ["nats", "bench"] + subcommands
     
     # execute the command using subprocess
-    out = subprocess.run(["nats", "bench", subcommands], stdout=subprocess.PIPE, text=True)
+    out = subprocess.run(command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if out.returncode != 0:
-        return out.stderr, "failed to execute give command"
+        return out.stderr, True
     
-    return out.stdout, ""
+    return out.stdout, False
     
