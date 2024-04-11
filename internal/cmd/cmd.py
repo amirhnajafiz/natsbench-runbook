@@ -2,6 +2,7 @@ import subprocess
 
 
 """run command executes a nats bench command.
+
 params:
     - command: string
 
