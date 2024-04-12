@@ -32,7 +32,7 @@ def hypo_test(groupA, groupB):
 # %%
 # a function to compare two groups
 def compare(avgA, avgB):    
-    return 100 * float(avgA-avgB/avgA)
+    return float(avgA-avgB/avgA)
 
 # %%
 #  hypothesis for comparing pub stats

@@ -22,7 +22,7 @@ returns:
     - string
 """
 def new_command(name: str) -> str:
-    uid = f'{name}.{str(uuid.uuid4())[:5]}'
+    uid = f'{name}.{str(uuid.uuid4())[:2]}'
     
     dest = __get_destination_location(uid)
     os.mkdir(dest)
