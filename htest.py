@@ -14,8 +14,8 @@ P_VALUE_BOUND = 0.05
 
 # %%
 # import in-use libraries
-import pandas as pd
-from scipy.stats import ttest_ind
+import pandas as pd # type: ignore
+from scipy.stats import ttest_ind # type: ignore
 
 # %%
 # read csv to create groups datasets
