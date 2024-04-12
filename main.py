@@ -25,7 +25,7 @@ def main():
     # main loop on commands
     for item in cfg:
         # reserve the output dir
-        location = writer.new_command()
+        location = writer.new_command(item["name"])
 
         for index in range(0, int(item["count"])):            
             # execute the command

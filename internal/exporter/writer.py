@@ -21,8 +21,8 @@ def __get_destination_location(uid: str) -> str:
 returns:
     - string
 """
-def new_command() -> str:
-    uid = str(uuid.uuid4())
+def new_command(name: str) -> str:
+    uid = f'{name}.{str(uuid.uuid4())[:5]}'
     
     dest = __get_destination_location(uid)
     os.mkdir(dest)
