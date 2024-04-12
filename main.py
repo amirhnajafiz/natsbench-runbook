@@ -1,8 +1,3 @@
-# todo: create a tmp directory
-# todo: parse cmd.json file
-# todo: create a dir for each command in tmp
-# todo: execute each command base on its count
-# todo: save the results into files (csv metrics and cmd output)
 # todo: create a parser to read these csv's and calculate the average in each file + a dataset
 # todo: perform Hypothesis test on the results for final output
 from system.error import panic
@@ -27,19 +22,21 @@ def main():
     # load configuration
     cfg = load()
     
+    # main loop on commands
     for item in cfg:
-        for index in range(0, int(item["count"])):
-            # reserve the output dir
-            id = writer.new_command()
-            
+        # reserve the output dir
+        location = writer.new_command()
+
+        for index in range(0, int(item["count"])):            
             # execute the command
-            out, err = run(item["command"], writer.get_location(id))
+            out, err = run(item["command"], f'{location}/{index}.out.csv')
             if err: # check for errors
                 logging.debug(out)
                 logging.warning(es.ERR_EXEC_COMMAND)
+                continue
             
             # export output
-            writer.export(out.strip(), id, index)
+            writer.export(out.strip(), f'{location}/{index}.out')
 
 
 if __name__ == "__main__":
