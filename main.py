@@ -6,6 +6,7 @@ from internal.config.config import load
 from internal.cmd.cmd import run
 from internal.exporter import make
 import internal.exporter.writer as writer
+from internal.parser.parser import raw_parsing
 
 import errors as es
 
@@ -29,14 +30,17 @@ def main():
 
         for index in range(0, int(item["count"])):            
             # execute the command
-            out, err = run(item["command"], f'{location}/{index}.out.csv')
+            raw, err = run(item["command"], f'{location}/{index}.out.csv')
             if err: # check for errors
-                logging.debug(out)
+                logging.debug(raw)
                 logging.warning(es.ERR_EXEC_COMMAND)
                 continue
             
+            out = raw_parsing(raw.strip())
+            
             # export output
-            writer.export(out.strip(), f'{location}/{index}.out')
+            writer.export(raw, f'{location}/{index}.raw')
+            writer.export(out, f'{location}/{index}.out')
 
 
 if __name__ == "__main__":
