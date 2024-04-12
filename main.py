@@ -10,7 +10,57 @@ from internal.exporter.gc import cleanup
 from internal.parser.parser import raw_parsing
 from internal.parser.dataset import create_dataset
 
-import logging
+
+"""handle syscall is used to execute a system-call.
+
+params:
+    - command: string
+"""
+def handle_syscall(command: str):
+    # execute system-call
+    out, err = syscall(command=command)
+    print(out)
+    if err: # check for errors
+        print(es.ERR_EXEC_COMMAND)
+
+
+"""handle command is used to execute a command.
+
+params:
+    - command: dictionary
+"""
+def handle_command(command: dict) -> str:
+    # reserve the output dir
+    location = writer.new_command(command["name"])
+    # set bound limit
+    bound = int(command["count"])+1
+
+    # loop on the count of each command
+    for index in range(1, bound): 
+        # execute a command's pre-commands
+        for precommand in command["pre-commands"]:
+            handle_syscall(precommand)
+        
+        # execute the command
+        raw, err = run(command["command"], f'{location}/xcmd-{index}.csv')
+        if err: # check for errors
+            print(raw)
+            print(es.ERR_EXEC_COMMAND)
+            cleanup(location)
+            continue
+        
+        # parse the raw output
+        out = raw_parsing(raw.strip())
+        
+        # export outputs
+        writer.export(raw, f'{location}/xcmd-{index}.raw')
+        writer.export(out, f'{location}/xcmd-{index}.out')
+    
+    # create the result dataset and save it
+    ds = create_dataset(location)
+    export_dataset(f'{location}/dataset.csv', ds)
+    
+    return location
 
 
 """main function of nats-bench runbook.
@@ -29,46 +79,17 @@ def main():
     
     # main loop on commands
     for item in cfg:
-        print(f'running:\n\tname={item["name"]}\n\tcommand={item["command"]}\n\tsyscall={item["syscall"]}')
+        print(f'\nrunning:\n\tname={item["name"]}\n\tcommand={item["command"]}\n\tsyscall={item["syscall"]}')
         
         # check for systemcall type
         if bool(item["syscall"]):
-            out, err = syscall(item["command"])
-            logging.debug(out)
-            if err: # check for errors
-                logging.warning(es.ERR_EXEC_COMMAND)
-            continue
-        
-        # reserve the output dir
-        location = writer.new_command(item["name"])
-        bound = int(item["count"])+1
-
-        # loop on the count of each command
-        for index in range(1, bound): 
-            # execute pre commands
-            for precommand in item["pre-commands"]:
-                syscall(precommand)
-            
-            # execute the command
-            raw, err = run(item["command"], f'{location}/xcmd-{index}.csv')
-            if err: # check for errors
-                logging.debug(raw)
-                logging.warning(es.ERR_EXEC_COMMAND)
-                cleanup(location)
-                continue
-            
-            # parse the raw output
-            out = raw_parsing(raw.strip())
-            
-            # export outputs
-            writer.export(raw, f'{location}/xcmd-{index}.raw')
-            writer.export(out, f'{location}/xcmd-{index}.out')
-        
-        # create the result dataset and save it
-        ds = create_dataset(location)
-        export_dataset(f'{location}/dataset.csv', ds)
-        
-        print(f'running {item["name"]} is done.\n\tlocation={location}')
+            handle_syscall(item["command"])
+            print(f'running syscall {item["name"]} is done.')
+        else:
+            location = handle_command(item)
+            print(f'running {item["name"]} is done.\n\tlocation={location}')
+    
+    print("runbook executed.")
 
 
 if __name__ == "__main__":
