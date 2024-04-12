@@ -28,8 +28,12 @@ def main():
     # load configuration
     cfg = load()
     
+    print(f'runbook execute:\n\tcommands={len(cfg)}')
+    
     # main loop on commands
     for item in cfg:
+        print(f'running:\n\tname={item["name"]}\n\tcommand={item["command"]}\n\tsyscall={item["syscall"]}')
+        
         # check for systemcall type
         if bool(item["syscall"]):
             out, err = syscall(item["command"])
@@ -62,6 +66,8 @@ def main():
         # create the result dataset and save it
         ds = create_dataset(location)
         export_dataset(f'{location}/dataset.csv', ds)
+        
+        print(f'running {item["name"]} is done.\n\tlocation={location}')
 
 
 if __name__ == "__main__":
