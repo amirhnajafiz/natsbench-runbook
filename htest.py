@@ -1,3 +1,8 @@
+# %% [markdown]
+# # Hypothesis Testing
+# 
+# In this notebook, we are going to represent the logic of our hypothesis testing for comparing NATS config changes. Everytime that we make a change, we benchmark the before and after change cases. After that, we change the groups names based on ```tmp``` directory names. Then we run this notebook in order to check the compare results.
+
 # %%
 import sys
 
@@ -9,51 +14,44 @@ P_VALUE_BOUND = 0.05
 
 # %%
 # import in-use libraries
-import pandas as pd # type: ignore
-from scipy.stats import ttest_ind # type: ignore
+import pandas as pd
+from scipy.stats import ttest_ind
 
 # %%
 # read csv to create groups datasets
-dfA = pd.read_csv(f'tmp/{GROUP_A}/dataset.csv')
-dfB = pd.read_csv(f'tmp/{GROUP_A}/dataset.csv')
-
-dfA.head()
+dfA = pd.read_csv(f'../tmp/{GROUP_A}/dataset.csv')
+dfB = pd.read_csv(f'../tmp/{GROUP_B}/dataset.csv')
 
 # %%
-# describe datasets
-dfA.describe()
-
-# %%
-# a function for hypothesis testing
+# using a function for hypothesis testing logic
+# which gets two columns data to compare
 def hypo_test(groupA, groupB):
-    t, p = ttest_ind(groupA, groupB)
-    return p < P_VALUE_BOUND
+    # get mean values
+    mean_a = groupA.mean()
+    mean_b = groupB.mean()
+    
+    t_statistic, p_value = ttest_ind(groupA, groupB)
+    
+    print(f"\tmean of `{GROUP_A}`: {mean_a}")
+    print(f"\tmean of `{GROUP_B}`: {mean_b}")
+    print(f"\tt-statistic: {t_statistic}")
+    print(f"\tp-value: {p_value}")
+    
+    if p_value < P_VALUE_BOUND:
+        print("the difference is statistically significant at 95% confidence level.")
+        if mean_a > mean_b:
+            print(f"`{GROUP_A}` is better by {100 * float((mean_a-mean_b)/mean_a)}%.")
+        else:
+            print(f"`{GROUP_B}` is better by {100 * float((mean_b-mean_a)/mean_b)}%.")
+    else:
+        print("the difference is not statistically significant at 95% confidence level.")
 
 # %%
-# a function to compare two groups
-def compare(avgA, avgB):    
-    return float(avgA-avgB/avgA)
+# defining dataset columns
+columns = ["pub-stats", "sub-stats", "overall-stats"]
 
 # %%
-#  hypothesis for comparing pub stats
-if hypo_test(dfA["pub-stats"], dfB["pub-stats"]):
-    print('reject pub-stats hypothesis: the means are different')
-    print(f'(A-B/A): {compare(dfA["pub-stats"].mean(), dfB["pub-stats"].mean())}')
-else:
-    print('fail to reject pub-stats hypothesis: the means are the same')
-
-# %%
-#  hypothesis for comparing sub stats
-if hypo_test(dfA["sub-stats"], dfB["sub-stats"]):
-    print('reject sub-stats hypothesis: the means are different')
-    print(f'(A-B/A): {compare(dfA["sub-stats"].mean(), dfB["sub-stats"].mean())}')
-else:
-    print('fail to reject sub-stats hypothesis: the means are the same')
-
-# %%
-#  hypothesis for comparing overall stats
-if hypo_test(dfA["overall-stats"], dfB["overall-stats"]):
-    print('reject overall-stats hypothesis: the means are different')
-    print(f'(A-B/A): {compare(dfA["overall-stats"].mean(), dfB["overall-stats"].mean())}')
-else:
-    print('fail to reject overall-stats hypothesis: the means are the same')
+#  hypothesis for comparing two groups
+for column in columns:
+    print(f"\ntesting `{column}` field:")
+    hypo_test(dfA[column], dfB[column])
