@@ -1,6 +1,5 @@
-# todo: create a parser to read these csv's and calculate the average in each file + a dataset
-# todo: perform Hypothesis test on the results for final output
 from system.error import panic
+import system.msg as es
 from internal.config import exists
 from internal.config.config import load
 from internal.cmd.cmd import run, syscall
@@ -10,8 +9,6 @@ import internal.exporter.writer as writer
 from internal.exporter.gc import cleanup
 from internal.parser.parser import raw_parsing
 from internal.parser.dataset import create_dataset
-
-import system.msg as es
 
 import logging
 
@@ -47,7 +44,11 @@ def main():
         bound = int(item["count"])+1
 
         # loop on the count of each command
-        for index in range(1, bound):            
+        for index in range(1, bound): 
+            # execute pre commands
+            for precommand in item["pre-commands"]:
+                syscall(precommand)
+            
             # execute the command
             raw, err = run(item["command"], f'{location}/xcmd-{index}.csv')
             if err: # check for errors

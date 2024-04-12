@@ -8,6 +8,9 @@
         "name": "normal-stats",
         "count": 20,
         "command": "rides --pub 5 --sub 15 -s nats://0.0.0.0:4222",
+        "pre-commands": [
+            "nats stream delete benchstream --force -s nats://0.0.0.0:4222"
+        ],
         "syscall": false
     }
 ]
