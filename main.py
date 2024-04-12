@@ -5,9 +5,11 @@ from internal.config import exists
 from internal.config.config import load
 from internal.cmd.cmd import run, syscall
 from internal.exporter import make
+from internal.exporter.csv import export_dataset
 import internal.exporter.writer as writer
 from internal.exporter.gc import cleanup
 from internal.parser.parser import raw_parsing
+from internal.parser.dataset import create_dataset
 
 import errors as es
 
@@ -40,9 +42,10 @@ def main():
         location = writer.new_command(item["name"])
         bound = int(item["count"])+1
 
+        # loop on the count of each command
         for index in range(1, bound):            
             # execute the command
-            raw, err = run(item["command"], f'{location}/cmd-{index}.csv')
+            raw, err = run(item["command"], f'{location}/xcmd-{index}.csv')
             if err: # check for errors
                 logging.debug(raw)
                 logging.warning(es.ERR_EXEC_COMMAND)
@@ -53,8 +56,12 @@ def main():
             out = raw_parsing(raw.strip())
             
             # export outputs
-            writer.export(raw, f'{location}/cmd-{index}.raw')
-            writer.export(out, f'{location}/cmd-{index}.out')
+            writer.export(raw, f'{location}/xcmd-{index}.raw')
+            writer.export(out, f'{location}/xcmd-{index}.out')
+        
+        # create the result dataset and save it
+        ds = create_dataset(location)
+        export_dataset(f'{location}/dataset.csv', ds)
 
 
 if __name__ == "__main__":
