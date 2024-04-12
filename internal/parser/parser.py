@@ -3,6 +3,15 @@ PUBKEY = "Pub stats"
 OVERALLKEY = "Pub/Sub stats"
 
 
+"""raw parsing is used to export essential benchmark
+data from the output of a benchmakr.
+
+params:
+    - text: string
+
+returns:
+    - string
+"""
 def raw_parsing(text: str) -> str:
     # split the whole text by enters
     parts = text.split("\n")

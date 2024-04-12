@@ -27,10 +27,11 @@ def main():
     for item in cfg:
         # reserve the output dir
         location = writer.new_command(item["name"])
+        bound = int(item["count"])+1
 
-        for index in range(0, int(item["count"])):            
+        for index in range(1, bound):            
             # execute the command
-            raw, err = run(item["command"], f'{location}/{index}.out.csv')
+            raw, err = run(item["command"], f'{location}/cmd-{index}.csv')
             if err: # check for errors
                 logging.debug(raw)
                 logging.warning(es.ERR_EXEC_COMMAND)
@@ -39,8 +40,8 @@ def main():
             out = raw_parsing(raw.strip())
             
             # export output
-            writer.export(raw, f'{location}/{index}.raw')
-            writer.export(out, f'{location}/{index}.out')
+            writer.export(raw, f'{location}/cmd-{index}.raw')
+            writer.export(out, f'{location}/cmd-{index}.out')
 
 
 if __name__ == "__main__":
