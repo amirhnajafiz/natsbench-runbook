@@ -1,14 +1,16 @@
 # %%
+import sys
+
 # notebook variables
-GROUP_A="normal-stats.26714" # change this
-GROUP_B="normal-stats.eef72" # change this
+GROUP_A=sys.argv[1] # change this
+GROUP_B=sys.argv[2] # change this
 
 P_VALUE_BOUND = 0.05
 
 # %%
 # import in-use libraries
-import pandas as pd
-from scipy.stats import ttest_ind
+import pandas as pd # type: ignore
+from scipy.stats import ttest_ind # type: ignore
 
 # %%
 # read csv to create groups datasets
@@ -55,5 +57,3 @@ if hypo_test(dfA["overall-stats"], dfB["overall-stats"]):
     print(f'(A-B/A): {compare(dfA["overall-stats"].mean(), dfB["overall-stats"].mean())}')
 else:
     print('fail to reject overall-stats hypothesis: the means are the same')
-
-
