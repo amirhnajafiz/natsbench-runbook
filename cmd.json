@@ -1,13 +1,13 @@
 [
     {
-        "name": "simple-rides",
-        "count": 2,
-        "command": "rides --pub 5 --sub 15 -s nats://0.0.0.0:4222",
-        "syscall": false
+        "name": "clear-stream",
+        "command": "nats stream delete benchstream --force -s nats://0.0.0.0:4222",
+        "syscall": true
     },
     {
-        "name": "list",
-        "command": "ls",
-        "syscall": true
+        "name": "normal-stats",
+        "count": 20,
+        "command": "rides --pub 5 --sub 15 -s nats://0.0.0.0:4222",
+        "syscall": false
     }
 ]
