@@ -3,7 +3,7 @@
 from system.error import panic
 from internal.config import exists
 from internal.config.config import load
-from internal.cmd.cmd import run
+from internal.cmd.cmd import run, syscall
 from internal.exporter import make
 import internal.exporter.writer as writer
 from internal.exporter.gc import cleanup
@@ -28,6 +28,14 @@ def main():
     
     # main loop on commands
     for item in cfg:
+        # check for systemcall type
+        if bool(item["syscall"]):
+            out, err = syscall(item["command"])
+            logging.debug(out)
+            if err: # check for errors
+                logging.warning(es.ERR_EXEC_COMMAND)
+            continue
+        
         # reserve the output dir
         location = writer.new_command(item["name"])
         bound = int(item["count"])+1
@@ -38,11 +46,6 @@ def main():
             if err: # check for errors
                 logging.debug(raw)
                 logging.warning(es.ERR_EXEC_COMMAND)
-                cleanup(location)
-                continue
-            
-            # skip no exports
-            if item["export"] == "no":
                 cleanup(location)
                 continue
             
