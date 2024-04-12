@@ -16,11 +16,12 @@ from internal.parser.dataset import create_dataset
 params:
     - command: string
 """
-def handle_syscall(command: str):
+def handle_syscall(command: str, notify: bool=False):
     # execute system-call
     out, err = syscall(command=command)
-    print(out)
-    if err: # check for errors
+    if notify:
+        print(out)
+    if err and notify: # check for errors
         print(es.ERR_EXEC_COMMAND)
 
 
@@ -83,7 +84,7 @@ def main():
         
         # check for systemcall type
         if bool(item["syscall"]):
-            handle_syscall(item["command"])
+            handle_syscall(item["command"], True)
             print(f'running syscall {item["name"]} is done.')
         else:
             location = handle_command(item)
