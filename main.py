@@ -6,6 +6,7 @@ from internal.config.config import load
 from internal.cmd.cmd import run
 from internal.exporter import make
 import internal.exporter.writer as writer
+from internal.exporter.gc import cleanup
 from internal.parser.parser import raw_parsing
 
 import errors as es
@@ -13,6 +14,8 @@ import errors as es
 import logging
 
 
+"""main function of nats-bench runbook.
+"""
 def main():
     if not exists(): # check the cmd.json file
         panic(es.ERR_CMDFILE, 1)
@@ -35,11 +38,18 @@ def main():
             if err: # check for errors
                 logging.debug(raw)
                 logging.warning(es.ERR_EXEC_COMMAND)
+                cleanup(location)
                 continue
             
+            # skip no exports
+            if item["export"] == "no":
+                cleanup(location)
+                continue
+            
+            # parse the raw output
             out = raw_parsing(raw.strip())
             
-            # export output
+            # export outputs
             writer.export(raw, f'{location}/cmd-{index}.raw')
             writer.export(out, f'{location}/cmd-{index}.out')
 

@@ -2,6 +2,13 @@
     {
         "name": "simple-rides",
         "count": 2,
-        "command": "rides --pub 5 --sub 15 -s nats://0.0.0.0:4222"
+        "command": "rides --pub 5 --sub 15 -s nats://0.0.0.0:4222",
+        "export": "yes"
+    },
+    {
+        "name": "list",
+        "count": 1,
+        "command": "ls",
+        "export": "no"
     }
 ]
