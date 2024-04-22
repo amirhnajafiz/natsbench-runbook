@@ -47,7 +47,6 @@ def handle_command(command: dict) -> str:
         if err: # check for errors
             print(raw)
             print(es.ERR_EXEC_COMMAND)
-            cleanup(location)
             continue
         
         # parse the raw output
