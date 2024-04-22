@@ -17,7 +17,7 @@ def bench(command: str, path: str, timeout_s: int) -> tuple[str, bool]:
     command_list = ["nats", "bench", "--no-progress", f'--csv={path}'] + subcommands
     
     # running bench as a syscall
-    return syscall(command_list, timeout_s=timeout_s)
+    return syscall(' '.join(command_list), timeout_s=timeout_s)
 
 
 """syscall is used to execute a normal command, not a bench command.

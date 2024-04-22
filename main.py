@@ -2,7 +2,7 @@ from system.error import panic
 import system.msg as es
 from internal.config import exists
 from internal.config.config import load
-from internal.cmd.cmd import run, syscall
+from internal.cmd.cmd import bench, syscall
 from internal.exporter import make
 from internal.exporter.csv import export_dataset
 import internal.exporter.writer as writer
@@ -42,10 +42,9 @@ def handle_command(command: dict) -> str:
             handle_syscall(precommand)
         
         # execute the command
-        raw, err = run(command["command"], f'{location}/xcmd-{index}.csv')
+        raw, err = bench(command["command"], f'{location}/xcmd-{index}.csv', 180)
         if err: # check for errors
-            print(raw)
-            print(es.ERR_EXEC_COMMAND)
+            print(raw, es.ERR_EXEC_COMMAND)
             continue
         
         # parse the raw output
@@ -74,7 +73,7 @@ def main():
     # load configuration
     cfg = load()
     
-    print(f'runbook execute:\n\tcommands={len(cfg)}')
+    print(f'runbook executed:\n\tcommands={len(cfg)}')
     
     # main loop on commands
     for item in cfg:
