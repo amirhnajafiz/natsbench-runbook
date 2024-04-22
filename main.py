@@ -10,7 +10,7 @@ from internal.parser.parser import raw_parsing
 from internal.parser.dataset import create_dataset
 
 
-"""handle syscall is used to execute a system-call.
+"""handle_syscall is used to execute a system-call.
 
 params:
     - command: string
@@ -24,19 +24,26 @@ def handle_syscall(command: str, notify: bool=False):
         print(es.ERR_EXEC_COMMAND)
 
 
-"""handle command is used to execute a command.
+"""handle_command is used to execute a command.
 
 params:
     - command: dictionary
 """
 def handle_command(command: dict) -> str:
-    # reserve the output dir
-    location = writer.new_command(command["name"])
-    # set bound limit
-    bound = int(command["count"])+1
+    # check if we want to add to previous tests or not
+    if "continue_in" in command:
+        location = writer.load(command["continue_in"])
+        dbound = command["continue_from"]
+    else:
+        # reserve the output dir
+        location = writer.new_command(command["name"])
+        dbound = 1
+    
+    # set upper bound limit
+    ubound = int(command["count"])+dbound
 
     # loop on the count of each command
-    for index in range(1, bound): 
+    for index in range(dbound, ubound): 
         # execute a command's pre-commands
         for precommand in command["pre-commands"]:
             handle_syscall(precommand)

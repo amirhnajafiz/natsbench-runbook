@@ -16,6 +16,7 @@ returns:
 def __get_destination_location(uid: str) -> str:
     return f'{OUTPUTDIR}/{uid}'
 
+
 """new command creates a new directory for a command.
 
 returns:
@@ -28,6 +29,19 @@ def new_command(name: str) -> str:
     os.mkdir(dest)
     
     return dest
+
+
+"""load function gets a uid and returns the storage location.
+
+params:
+    - uid: string
+    
+returns:
+    - string
+"""
+def load(uid: str) -> str:
+    return __get_destination_location(uid)
+
 
 """export function is used to create an output file in
 the given destination.
