@@ -1,5 +1,6 @@
 from system.error import panic
 import system.msg as es
+from system.dependencies import depcheck
 from internal.config import exists
 from internal.config.config import load
 from internal.cmd.cmd import bench, syscall
@@ -116,7 +117,9 @@ if __name__ == "__main__":
     
     # running depscheck method
     if args.depcheck is not None and args.depcheck == "true":
-        pass # dependencies check
+        if not depcheck():
+            panic(es.ERR_DEPS)
+        print("deps check successfully!")
     
     # setting progress flag
     progress = args.progress is not None and args.progress == "true"
