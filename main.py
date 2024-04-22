@@ -6,7 +6,6 @@ from internal.cmd.cmd import run, syscall
 from internal.exporter import make
 from internal.exporter.csv import export_dataset
 import internal.exporter.writer as writer
-from internal.exporter.gc import cleanup
 from internal.parser.parser import raw_parsing
 from internal.parser.dataset import create_dataset
 
