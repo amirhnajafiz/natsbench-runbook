@@ -9,6 +9,8 @@ import internal.exporter.writer as writer
 from internal.parser.parser import raw_parsing
 from internal.parser.dataset import create_dataset
 
+import argparse
+
 
 """handle_syscall is used to execute a system-call.
 
@@ -98,4 +100,19 @@ def main():
 
 
 if __name__ == "__main__":
+    # arguments parser
+    parser = argparse.ArgumentParser()
+    
+    parser.add_argument("-d", "--depcheck", help="check runbook dependencies")
+    parser.add_argument("-p", "--progress", help="show progress of commands execution")
+    
+    args = parser.parse_args()
+    
+    # running depscheck method
+    if args.depcheck is not None and args.depcheck == "true":
+        pass # dependencies check
+    
+    # setting progress flag
+    progress = args.progress is not None and args.progress == "true"
+    
     main()
