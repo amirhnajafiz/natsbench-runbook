@@ -84,17 +84,17 @@ def main():
     
     # main loop on commands
     for item in cfg:
-        print(f'\nrunning:\n\tname={item["name"]}\n\tcommand={item["command"]}\n\tsyscall={item["syscall"]}')
+        print(f'\n>> running:\n\tname={item["name"]}\n\tcommand={item["command"]}\n\tsyscall={item["syscall"]}')
         
         # check for systemcall type
         if bool(item["syscall"]):
             handle_syscall(item["command"], True)
-            print(f'running syscall {item["name"]} is done.')
+            print(f'<< running syscall {item["name"]} is done.')
         else:
             location = handle_command(item)
-            print(f'running {item["name"]} is done.\n\tlocation={location}')
+            print(f'<< running {item["name"]} is done.\n\tlocation={location}')
     
-    print("runbook executed.")
+    print("\n\nrunbook finished.")
 
 
 if __name__ == "__main__":
