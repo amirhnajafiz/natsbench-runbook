@@ -11,6 +11,7 @@
         "pre-commands": [
             "nats stream delete benchstream --force -s nats://0.0.0.0:4222"
         ],
+        "timeout": 180,
         "syscall": false
     }
 ]

@@ -55,7 +55,7 @@ def handle_command(command: dict, progress: bool = False) -> str:
             handle_syscall(precommand)
         
         # execute the command
-        raw, err = bench(command["command"], f'{location}/xcmd-{index}.csv', 180)
+        raw, err = bench(command["command"], f'{location}/xcmd-{index}.csv', command["timeout"])
         if err: # check for errors
             print("\n", raw, es.ERR_EXEC_COMMAND, "\n")
             continue
