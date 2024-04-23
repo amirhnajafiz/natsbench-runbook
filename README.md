@@ -23,3 +23,51 @@ A complete section of a command is represented below. Each command has a ```name
 ## Hypothesis testing
 
 A good feature in this runbook is hypothesis testing of a config change in nats-server. After you benchmakr the cluster, you can compare your changes by running ```python3 htest.py``` command. This script gets two input argument which are the directory names in ```tmp``` directory (referred as groups). After that, it will run a hypothesis test to compare read, write, and overall stats between those groups.
+
+```json
+[
+    {
+        "name": "context-switch",
+        "command": "nats context select default",
+        "syscall": true
+    },
+    {
+        "name": "normal-stats",
+        "count": 5,
+        "command": "rides --pub 5 --sub 15",
+        "pre-commands": [
+            "nats stream delete benchstream --force"
+        ],
+        "syscall": false
+    }
+]
+```
+
+```sh
+{
+  "description": "",
+  "url": "nats://172.21.88.124:4222",
+  "socks_proxy": "",
+  "token": "",
+  "user": "",
+  "password": "",
+  "creds": "",
+  "nkey": "",
+  "cert": "",
+  "key": "",
+  "ca": "",
+  "nsc": "",
+  "jetstream_domain": "",
+  "jetstream_api_prefix": "",
+  "jetstream_event_prefix": "",
+  "inbox_prefix": "",
+  "user_jwt": "",
+  "color_scheme": ""
+}
+```
+
+```sh
+docker build . -f build/Dockerfile -t amirhossein21/natsbench-runbook:v0.0.4
+
+docker run -v ./tmp:/usr/src/app/tmp -v ./cmd.json:/usr/src/app/cmd.json -v ./default.json:/root/.config/nats/context/js-p.json amirhossein21/natsbench-runbook:v0.0.4 nats context ls
+```
