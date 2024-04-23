@@ -1,6 +1,9 @@
 # Use the official Python image
 FROM python:3.10
 
+# Set image user
+USER aptly
+
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
