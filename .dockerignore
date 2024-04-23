@@ -8,3 +8,4 @@ tmp/
 README.md
 cmd.json
 .gitignore
+requirements.txt
