@@ -4,7 +4,7 @@ FROM python:3.10
 # Install nats-cli
 RUN apt-get update && \
     apt-get update && \
-    apt-get install -y nats-cli
+    apt-get install -y natscli
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
