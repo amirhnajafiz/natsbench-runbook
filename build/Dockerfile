@@ -1,17 +1,22 @@
-# from base image
-FROM python:3.10-slim-buster
+# Use the official Python image
+FROM python:3.10
 
-# src/app directory
-WORKDIR /src/app
+# Install nats-cli
+RUN apt-get update && \
+    apt-get install -y gnupg2 && \
+    apt-key adv --keyserver keys.gnupg.net --recv-keys 399EEA01 && \
+    echo "deb http://apt.insync.io/mirror/evernote/debian/ jessie non-free" >> /etc/apt/sources.list.d/insync.list && \
+    apt-get update && \
+    apt-get install -y nats-cli
 
-# copy requirement file
-COPY requirements.txt .
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-# install them
-RUN pip3 install -r requirements.txt
-
-# copy all files
+# Copy the local code to the container image
 COPY . .
 
-# start script
-CMD python3 main.py
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Run the Python script
+CMD [ "python", "./main.py" ]
