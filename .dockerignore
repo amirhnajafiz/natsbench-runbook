@@ -1,0 +1,10 @@
+build/
+__pycache__/
+config/
+notebooks/
+tmp/
+.git/
+
+README.md
+cmd.json
+.gitignore
