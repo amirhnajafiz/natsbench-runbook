@@ -3,9 +3,6 @@ FROM python:3.10
 
 # Install nats-cli
 RUN apt-get update && \
-    apt-get install -y gnupg2 && \
-    apt-key adv --keyserver hkps://keys.openpgp.org --recv-keys 399EEA01 && \
-    echo "deb http://apt.insync.io/mirror/evernote/debian/ jessie non-free" >> /etc/apt/sources.list.d/insync.list && \
     apt-get update && \
     apt-get install -y nats-cli
 
