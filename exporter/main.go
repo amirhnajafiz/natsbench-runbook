@@ -30,10 +30,12 @@ type outputFileMeta struct {
 }
 
 // serverCSV loads the csv file of the given project.
-func serveCSV(location string) {
+func serveCSV(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	location := vars["benchmark"]
 	path := fmt.Sprintf("%s%s/dataset.csv", baseDir, location)
 
-	log.Println(path)
+	http.ServeFile(w, r, path)
 }
 
 // listDirectories returns the list of benchmarks in details
@@ -103,11 +105,27 @@ func health(w http.ResponseWriter, _ *http.Request) {
 }
 
 func main() {
+	// load env variables
+	port := os.Getenv("HTTP_PORT")
+
 	// create a new mux router
 	router := mux.NewRouter()
 
 	// register exporter endpoints
 	router.HandleFunc("/healthz", health).Methods(http.MethodGet)
 	router.HandleFunc("/benchmarks", listDirectories).Methods(http.MethodGet)
+	router.HandleFunc("/benchmarks/{benchmark}", serveCSV).Methods(http.MethodGet)
 
+	// create a new server
+	srv := &http.Server{
+		Handler: router,
+		Addr:    fmt.Sprintf("127.0.0.1:%s", port),
+	}
+
+	log.Printf("exporter started on %s ...\n", port)
+
+	// start the http server
+	if err := srv.ListenAndServe(); err != nil {
+		log.Fatal(err)
+	}
 }
