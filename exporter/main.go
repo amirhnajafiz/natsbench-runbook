@@ -4,10 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 const (
@@ -33,17 +36,20 @@ func serveCSV(location string) {
 	log.Println(path)
 }
 
-// listDirectories returns the list of tests
-func listDirectories() []outputFileMeta {
+// listDirectories returns the list of benchmarks in details
+func listDirectories(w http.ResponseWriter, _ *http.Request) {
+	// create a list of outputFileMeta type
 	items := make([]outputFileMeta, 0)
 
+	// get directory entries
 	entries, err := os.ReadDir(baseDir)
 	if err != nil {
 		log.Println(err)
 
-		return items
+		return
 	}
 
+	// read info file
 	for _, e := range entries {
 		data, err := os.ReadFile(fmt.Sprintf("%s%s/info.json", baseDir, e.Name()))
 		if err != nil {
@@ -75,20 +81,33 @@ func listDirectories() []outputFileMeta {
 		items = append(items, out)
 	}
 
+	// sort based on created date
 	sort.Slice(items, func(i, j int) bool {
 		return items[i].Date.Before(items[j].Date)
 	})
 
-	return items
+	// create json output
+	bytes, err := json.Marshal(items)
+	if err != nil {
+		log.Println(err)
+
+		return
+	}
+
+	w.Write(bytes)
+}
+
+// health handler is used to check exporter status
+func health(w http.ResponseWriter, _ *http.Request) {
+	w.WriteHeader(http.StatusOK)
 }
 
 func main() {
-	list := listDirectories()
+	// create a new mux router
+	router := mux.NewRouter()
 
-	bytes, err := json.Marshal(list)
-	if err != nil {
-		panic(err)
-	}
+	// register exporter endpoints
+	router.HandleFunc("/healthz", health).Methods(http.MethodGet)
+	router.HandleFunc("/benchmarks", listDirectories).Methods(http.MethodGet)
 
-	fmt.Println(string(bytes))
 }
