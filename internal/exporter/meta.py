@@ -1,4 +1,4 @@
-from writer import export
+from .writer import export
 
 import json
 
@@ -11,6 +11,6 @@ params:
     - location: string
 """
 def create_metafile(context: dict, location: str):
-    data = json.dumps(context)
+    data = json.dumps(context, indent=4, sort_keys=True, default=str)
     path = f'{location}/info.json'
     export(data, path)

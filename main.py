@@ -6,11 +6,13 @@ from internal.config.config import load
 from internal.cmd.cmd import bench, syscall
 from internal.exporter import make
 from internal.exporter.csv import export_dataset
+from internal.exporter.meta import create_metafile
 import internal.exporter.writer as writer
 from internal.parser.parser import raw_parsing
 from internal.parser.dataset import create_dataset
 
 import argparse
+import datetime
 
 
 """handle_syscall is used to execute a system-call.
@@ -41,6 +43,16 @@ def handle_command(command: dict, progress: bool = False) -> str:
         # reserve the output dir
         location = writer.new_command(command["name"])
         dbound = 1
+        
+    # set metadata
+    create_metafile(
+        {
+            "date": datetime.datetime.now(),
+            "location": location,
+            "run-command": command
+        }, 
+        location=location
+    )
     
     # set upper bound limit
     ubound = int(command["count"])+dbound
