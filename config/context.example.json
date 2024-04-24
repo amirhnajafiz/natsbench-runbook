@@ -1,0 +1,21 @@
+{
+    "description": "Default NATS context",
+    "url": "nats://0.0.0.0:4222",
+    "socks_proxy": "",
+    "token": "",
+    "user": "admin",
+    "password": "password",
+    "creds": "",
+    "nkey": "",
+    "cert": "",
+    "key": "",
+    "ca": "",
+    "nsc": "",
+    "jetstream_domain": "",
+    "jetstream_api_prefix": "",
+    "jetstream_event_prefix": "",
+    "inbox_prefix": "",
+    "user_jwt": "",
+    "color_scheme": "blue"
+  }
+  
