@@ -1,9 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
+	"sort"
+	"strings"
 	"time"
 )
 
@@ -11,9 +14,16 @@ const (
 	baseDir = "tmp/"
 )
 
-type FileMeta struct {
-	Date     time.Time `json:"date"`
-	Location string    `json:"location"`
+type inputFileMeta struct {
+	Date     string      `json:"date"`
+	Location string      `json:"location"`
+	Command  interface{} `json:"run-command"`
+}
+
+type outputFileMeta struct {
+	Date    time.Time   `json:"created_at"`
+	Name    string      `json:"name"`
+	Command interface{} `json:"command"`
 }
 
 // serverCSV loads the csv file of the given project.
@@ -24,8 +34,8 @@ func serveCSV(location string) {
 }
 
 // listDirectories returns the list of tests
-func listDirectories() []string {
-	items := make([]string, 0)
+func listDirectories() []outputFileMeta {
+	items := make([]outputFileMeta, 0)
 
 	entries, err := os.ReadDir(baseDir)
 	if err != nil {
@@ -42,8 +52,32 @@ func listDirectories() []string {
 			continue
 		}
 
-		items = append(items, string(data))
+		instance := inputFileMeta{}
+		if err := json.Unmarshal(data, &instance); err != nil {
+			log.Println(err)
+
+			continue
+		}
+
+		output, er := time.Parse("2006-01-02 15:04:05.000000", instance.Date)
+		if er != nil {
+			log.Println(er)
+
+			continue
+		}
+
+		out := outputFileMeta{
+			Date:    output,
+			Name:    strings.Split(instance.Location, "/")[1],
+			Command: instance.Command,
+		}
+
+		items = append(items, out)
 	}
+
+	sort.Slice(items, func(i, j int) bool {
+		return items[i].Date.Before(items[j].Date)
+	})
 
 	return items
 }
@@ -51,8 +85,10 @@ func listDirectories() []string {
 func main() {
 	list := listDirectories()
 
-	for _, item := range list {
-		fmt.Println(item)
-		fmt.Println()
+	bytes, err := json.Marshal(list)
+	if err != nil {
+		panic(err)
 	}
+
+	fmt.Println(string(bytes))
 }
