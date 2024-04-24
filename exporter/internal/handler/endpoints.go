@@ -24,8 +24,8 @@ func (h Handler) ServeCSV(w http.ResponseWriter, r *http.Request) {
 
 // ListDirectories returns the list of benchmarks in details
 func (h Handler) ListDirectories(w http.ResponseWriter, _ *http.Request) {
-	// create a list of outputFileMeta type
-	items := make([]outputFileMeta, 0)
+	// create a list of fileMeta type
+	items := make([]fileMeta, 0)
 
 	// get directory entries
 	entries, err := os.ReadDir(fmt.Sprintf("%s/", h.Volume))
@@ -35,7 +35,7 @@ func (h Handler) ListDirectories(w http.ResponseWriter, _ *http.Request) {
 		return
 	}
 
-	// read info file
+	// read info files into fileMeta struct
 	for _, e := range entries {
 		data, err := os.ReadFile(fmt.Sprintf("%s/%s/info.json", h.Volume, e.Name()))
 		if err != nil {
@@ -44,32 +44,24 @@ func (h Handler) ListDirectories(w http.ResponseWriter, _ *http.Request) {
 			continue
 		}
 
-		instance := inputFileMeta{}
+		instance := fileMeta{}
 		if err := json.Unmarshal(data, &instance); err != nil {
 			log.Println(err)
 
 			continue
 		}
 
-		output, er := time.Parse("2006-01-02 15:04:05.000000", instance.Date)
-		if er != nil {
-			log.Println(er)
+		instance.Name = strings.Split(instance.Location, "/")[1]
 
-			continue
-		}
-
-		out := outputFileMeta{
-			Date:    output,
-			Name:    strings.Split(instance.Location, "/")[1],
-			Command: instance.Command,
-		}
-
-		items = append(items, out)
+		items = append(items, instance)
 	}
 
 	// sort based on created date
 	sort.Slice(items, func(i, j int) bool {
-		return items[i].Date.Before(items[j].Date)
+		A := time.Time(items[i].Date)
+		B := time.Time(items[j].Date)
+
+		return A.Before(B)
 	})
 
 	// create json output
