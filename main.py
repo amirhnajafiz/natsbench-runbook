@@ -60,7 +60,7 @@ def handle_command(command: dict, progress: bool = False) -> str:
     # loop on the count of each command
     for index in range(dbound, ubound):
         if progress:
-            print(f'\t** start: {index} out {ubound}')
+            print(f'\t** start: {index} out {ubound-1}')
         
         # execute a command's pre-commands
         for precommand in command["pre-commands"]:
@@ -80,7 +80,7 @@ def handle_command(command: dict, progress: bool = False) -> str:
         writer.export(out, f'{location}/xcmd-{index}.out')
         
         if progress:
-            print(f'\t** done: {index} out {ubound}')
+            print(f'\t** done: {index} out {ubound-1}')
     
     # create the result dataset and save it
     ds = create_dataset(location)
