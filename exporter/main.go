@@ -10,6 +10,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/amirhnajafiz/natsbench-runbook/exporter/internal/config"
+
 	"github.com/gorilla/mux"
 )
 
@@ -105,8 +107,8 @@ func health(w http.ResponseWriter, _ *http.Request) {
 }
 
 func main() {
-	// load env variables
-	port := os.Getenv("HTTP_PORT")
+	// load config
+	cfg := config.Load()
 
 	// create a new mux router
 	router := mux.NewRouter()
@@ -119,10 +121,10 @@ func main() {
 	// create a new server
 	srv := &http.Server{
 		Handler: router,
-		Addr:    fmt.Sprintf("127.0.0.1:%s", port),
+		Addr:    fmt.Sprintf("127.0.0.1:%d", cfg.HTTPPort),
 	}
 
-	log.Printf("exporter started on %s ...\n", port)
+	log.Printf("exporter started on %d ...\n", cfg.HTTPPort)
 
 	// start the http server
 	if err := srv.ListenAndServe(); err != nil {
