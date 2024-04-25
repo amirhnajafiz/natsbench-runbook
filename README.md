@@ -9,22 +9,6 @@ Copy the example ```cmd.example.json``` file in **config** directory into ```cmd
 A complete section of a command is represented below. Each command has a ```name``` lable. The ```count``` label is used when you want to repeat a command multiple times. ```command``` field is where you put nats-bench attributes (please don't as ```--csv``` and ```--no-progress``` commands since the runbook sets them). The ```pre-commands``` fields is an array of commands that you want to run before bench process. If you set ```syscall``` label, you can run any shell commands instead of nats-bench commands.
 
 ```json
-{
-    "name": "normal-stats",
-    "count": 20,
-    "command": "rides --pub 5 --sub 15 -s nats://0.0.0.0:4222",
-    "pre-commands": [
-        "nats stream delete benchstream --force -s nats://0.0.0.0:4222"
-    ],
-    "syscall": false
-}
-```
-
-## Hypothesis testing
-
-A good feature in this runbook is hypothesis testing of a config change in nats-server. After you benchmakr the cluster, you can compare your changes by running ```python3 htest.py``` command. This script gets two input argument which are the directory names in ```tmp``` directory (referred as groups). After that, it will run a hypothesis test to compare read, write, and overall stats between those groups.
-
-```json
 [
     {
         "name": "context-switch",
@@ -43,7 +27,9 @@ A good feature in this runbook is hypothesis testing of a config change in nats-
 ]
 ```
 
-```sh
+### context config
+
+```json
 {
   "description": "",
   "url": "nats://172.21.88.124:4222",
@@ -66,8 +52,13 @@ A good feature in this runbook is hypothesis testing of a config change in nats-
 }
 ```
 
+## Hypothesis testing
+
+A good feature in this runbook is hypothesis testing of a config change in nats-server. After you benchmakr the cluster, you can compare your changes by running ```python3 htest.py``` command. This script gets two input argument which are the directory names in ```tmp``` directory (referred as groups). After that, it will run a hypothesis test to compare read, write, and overall stats between those groups.
+
+## Build and run
+
 ```sh
 docker build . -f build/Dockerfile -t amirhossein21/natsbench-runbook:v0.0.4
-
 docker run -v ./tmp:/usr/src/app/tmp -v ./cmd.json:/usr/src/app/cmd.json -v ./default.json:/root/.config/nats/context/js-p.json amirhossein21/natsbench-runbook:v0.0.4 nats context ls
 ```
