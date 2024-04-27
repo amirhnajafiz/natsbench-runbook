@@ -1,0 +1,7 @@
+build/
+config/
+exporter/
+notebooks/
+
+README.md
+.gitignore
