@@ -35,5 +35,10 @@ func (h Handler) GetContext(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h Handler) SelectContext(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	ctx := vars["context"]
 
+	h.NatsCli.Select(ctx)
+
+	w.WriteHeader(http.StatusOK)
 }
