@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func (h Handler) ListContext(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +25,13 @@ func (h Handler) ListContext(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h Handler) GetContext(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	ctx := vars["context"]
 
+	out := h.NatsCli.Get(ctx)
+
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(out))
 }
 
 func (h Handler) SelectContext(w http.ResponseWriter, r *http.Request) {
