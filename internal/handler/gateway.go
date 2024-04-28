@@ -5,6 +5,18 @@ import (
 	"net/http"
 )
 
+func (h Handler) List(w http.ResponseWriter, _ *http.Request) {
+	bytes := h.Cache.List()
+	if bytes == nil {
+		w.WriteHeader(http.StatusInternalServerError)
+
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(bytes)
+}
+
 func (h Handler) Runbook(w http.ResponseWriter, r *http.Request) {
 	bytes := make([]byte, 0)
 

@@ -31,6 +31,7 @@ func main() {
 	router.HandleFunc("/context", h.ListContext).Methods(http.MethodGet)
 	router.HandleFunc("/context/{context}", h.GetContext).Methods(http.MethodGet)
 	router.HandleFunc("/context/{context}", h.SelectContext).Methods(http.MethodPost)
+	router.HandleFunc("/", h.List).Methods(http.MethodGet)
 	router.HandleFunc("/", h.Runbook).Methods(http.MethodPost)
 
 	// create a new server
