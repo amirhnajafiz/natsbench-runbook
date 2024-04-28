@@ -30,7 +30,20 @@ func (c cli) List() []string {
 }
 
 func (c cli) Get(name string) string {
-	return ""
+	args := []string{
+		"nats",
+		"context",
+		"info",
+		name,
+		"--json",
+	}
+
+	out, err := executeCommand(args)
+	if err != nil {
+		return ""
+	}
+
+	return out
 }
 
 func (c cli) Select(name string) {
