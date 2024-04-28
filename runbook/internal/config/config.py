@@ -4,6 +4,9 @@ from . import CMDPATH
 
 """load function reads cmd.json file into a dictionary.
 
+params:
+    - jsonContext: string
+
 returns:
     - dictionary
 """

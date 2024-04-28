@@ -19,6 +19,7 @@ import datetime
 
 params:
     - command: string
+    - notify: bool
 """
 def handle_syscall(command: str, notify: bool=False):
     # execute system-call
@@ -33,6 +34,7 @@ def handle_syscall(command: str, notify: bool=False):
 
 params:
     - command: dictionary
+    - progress: bool
 """
 def handle_command(command: dict, progress: bool = False) -> str:
     # check if we want to add to previous tests or not
