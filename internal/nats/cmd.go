@@ -47,5 +47,12 @@ func (c cli) Get(name string) string {
 }
 
 func (c cli) Select(name string) {
+	args := []string{
+		"nats",
+		"context",
+		"select",
+		name,
+	}
 
+	_, _ = executeCommand(args)
 }
