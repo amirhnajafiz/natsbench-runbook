@@ -7,6 +7,9 @@ from . import CMDPATH
 returns:
     - dictionary
 """
-def load() -> dict:
+def load(jsonContext: str) -> dict:
+    if len(jsonContext) > 0:
+        return json.loads(jsonContext)
+    
     with open(CMDPATH, "r") as file:
         return json.load(file)

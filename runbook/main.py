@@ -91,7 +91,7 @@ def handle_command(command: dict, progress: bool = False) -> str:
 
 """main function of nats-bench runbook.
 """
-def main(progress: bool):
+def main(progress: bool, jsonContext: str):
     if not exists(): # check the cmd.json file
         panic(es.ERR_CMDFILE, 1)
     
@@ -99,7 +99,7 @@ def main(progress: bool):
     make()
     
     # load configuration
-    cfg = load()
+    cfg = load(jsonContext)
     
     print(f'runbook executed:\n\tcommands={len(cfg)}')
     
@@ -124,6 +124,7 @@ if __name__ == "__main__":
     
     parser.add_argument("-d", "--depcheck", help="check runbook dependencies")
     parser.add_argument("-p", "--progress", help="show progress of commands execution")
+    parser.add_argument("-j", "--json", help="JSON input insted of file")
     
     args = parser.parse_args()
     
@@ -136,4 +137,7 @@ if __name__ == "__main__":
     # setting progress flag
     progress = args.progress is not None and args.progress == "true"
     
-    main(progress)
+    # setting json value
+    jsonContext = "" if args.json is None else args.json
+    
+    main(progress, jsonContext)
