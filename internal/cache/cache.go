@@ -9,6 +9,12 @@ type Cache struct {
 	storage map[string]item
 }
 
+func New() Cache {
+	return Cache{
+		storage: make(map[string]item),
+	}
+}
+
 func (c Cache) Put(name, command string) {
 	c.storage[name] = item{
 		CreatedAt: time.Now(),

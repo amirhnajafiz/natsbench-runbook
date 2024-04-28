@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/amirhnajafiz/natsbench-runbook/internal/cache"
 	"github.com/amirhnajafiz/natsbench-runbook/internal/config"
 	"github.com/amirhnajafiz/natsbench-runbook/internal/handler"
 	"github.com/amirhnajafiz/natsbench-runbook/internal/nats"
@@ -22,6 +23,7 @@ func main() {
 	// create a new handler
 	h := handler.Handler{
 		NatsCli: nats.New(),
+		Cache:   cache.New(),
 	}
 
 	// register exporter endpoints

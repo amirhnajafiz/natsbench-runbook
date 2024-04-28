@@ -4,9 +4,14 @@ import (
 	"log"
 	"os"
 	"os/exec"
+
+	"github.com/google/uuid"
 )
 
 func (h Handler) work(object string) {
+	id := uuid.NewString()
+
+	h.Cache.Put(id, object)
 	os.Chdir("runbook/")
 
 	args := []string{
@@ -24,4 +29,6 @@ func (h Handler) work(object string) {
 	} else {
 		log.Println(out)
 	}
+
+	h.Cache.Del(id)
 }
