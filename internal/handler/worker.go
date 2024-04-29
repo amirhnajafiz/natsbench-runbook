@@ -15,7 +15,7 @@ func (h Handler) work(object string) {
 	os.Chdir("runbook/")
 
 	args := []string{
-		"python",
+		"python3",
 		"main.py",
 		"-p",
 		"true",

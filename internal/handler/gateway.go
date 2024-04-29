@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"bytes"
 	"log"
 	"net/http"
 )
@@ -18,9 +19,9 @@ func (h Handler) List(w http.ResponseWriter, _ *http.Request) {
 }
 
 func (h Handler) Runbook(w http.ResponseWriter, r *http.Request) {
-	bytes := make([]byte, 0)
+	buffer := bytes.Buffer{}
 
-	if _, err := r.Body.Read(bytes); err != nil {
+	if _, err := buffer.ReadFrom(r.Body); err != nil {
 		log.Println(err)
 
 		w.WriteHeader(http.StatusBadRequest)
@@ -28,7 +29,7 @@ func (h Handler) Runbook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	go h.work(string(bytes))
+	go h.work(buffer.String())
 
 	w.WriteHeader(http.StatusOK)
 }
