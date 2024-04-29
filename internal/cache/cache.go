@@ -20,6 +20,7 @@ func (c Cache) Put(name, command string) {
 		CreatedAt: time.Now(),
 		Command:   command,
 		Output:    make([]string, 0),
+		Done:      false,
 	}
 }
 
@@ -29,6 +30,7 @@ func (c Cache) Add(name, content string) {
 
 func (c Cache) Del(name string) {
 	c.storage[name].FinishedAt = time.Now()
+	c.storage[name].Done = true
 }
 
 func (c Cache) List() []byte {
