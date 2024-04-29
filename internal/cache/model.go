@@ -6,4 +6,5 @@ type item struct {
 	CreatedAt  time.Time `json:"created_at"`
 	FinishedAt time.Time `json:"finished_at"`
 	Command    string    `json:"command"`
+	Output     string    `json:"output"`
 }

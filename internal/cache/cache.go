@@ -22,8 +22,9 @@ func (c Cache) Put(name, command string) {
 	}
 }
 
-func (c Cache) Del(name string) {
+func (c Cache) Del(name, output string) {
 	c.storage[name].FinishedAt = time.Now()
+	c.storage[name].Output = output
 }
 
 func (c Cache) List() []byte {

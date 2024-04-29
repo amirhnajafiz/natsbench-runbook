@@ -24,11 +24,11 @@ func (h Handler) work(object string) {
 	}
 
 	cmd := exec.Command(args[0], args[1:]...)
-	if out, err := cmd.Output(); err != nil {
+
+	out, err := cmd.Output()
+	if err != nil {
 		log.Println(err)
-	} else {
-		log.Println(out)
 	}
 
-	h.Cache.Del(id)
+	h.Cache.Del(id, string(out))
 }
