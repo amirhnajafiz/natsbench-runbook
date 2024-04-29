@@ -19,12 +19,16 @@ func (c Cache) Put(name, command string) {
 	c.storage[name] = &item{
 		CreatedAt: time.Now(),
 		Command:   command,
+		Output:    make([]string, 0),
 	}
 }
 
-func (c Cache) Del(name, output string) {
+func (c Cache) Add(name, content string) {
+	c.storage[name].Output = append(c.storage[name].Output, content)
+}
+
+func (c Cache) Del(name string) {
 	c.storage[name].FinishedAt = time.Now()
-	c.storage[name].Output = output
 }
 
 func (c Cache) List() []byte {
