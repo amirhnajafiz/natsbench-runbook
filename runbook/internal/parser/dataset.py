@@ -2,7 +2,7 @@ import os
 
 
 SPLITOR = "~"
-KBFLAG = "kbyte"
+KBFLAG = "KB/sec"
 
 
 """import numbers is used to parse raw text line to a float number.
