@@ -1,5 +1,9 @@
 # NATS Bench Runbook
 
+![GitHub top language](https://img.shields.io/github/languages/top/amirhnajafiz/natsbench-runbook)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/amirhnajafiz/natsbench-runbook)
+![GitHub Tag](https://img.shields.io/github/v/tag/amirhnajafiz/natsbench-runbook)
+
 This is a runbook for automating nats-bench commands. It uses nats-cli bench feature in order to execute bench commands.
 
 ## Config
